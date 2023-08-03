@@ -51,6 +51,27 @@
     .contact-btn:hover {
       background-color: #7f6e63;
     }
+    .song-link {
+      margin-top: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+      border-radius: 5px;
+    }
+    .song-btn {
+      background-color: #b09a8b;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .song-btn:hover {
+      background-color: #7f6e63;
+    }
     .section {
       padding: 20px;
       margin-bottom: 30px;
@@ -74,25 +95,17 @@
     .section li {
       margin-bottom: 5px;
     }
-    .song-link {
-      margin-top: 20px;
-    }
-    iframe {
-      width: 100%;
-      height: 315px;
-      border: none;
-      border-radius: 5px;
-    }
-    .song-btn {
+    .read-btn {
       background-color: #b09a8b;
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 5px 10px;
       border-radius: 5px;
       text-decoration: none;
+      margin-right: 10px;
       cursor: pointer;
     }
-    .song-btn:hover {
+    .read-btn:hover {
       background-color: #7f6e63;
     }
   </style>
@@ -100,7 +113,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <img class="profile-img" src="lic3.jpg" alt="Foto de perfil de Alexa Contreras">
+      <img class="profile-img" src="./assets/lic3.jpg" alt="Foto de perfil de Alexa Contreras">
       <div class="profile-info">
         <div class="name">Alexa Contreras Rodriguez</div>
         <a class="contact-btn" href="https://wa.me/tunumerodetelefono" target="_blank">Contactarme en WhatsApp</a>
@@ -111,16 +124,19 @@
     <div class="section">
       <h2>Sobre mí</h2>
       <p>Soy de Culiacán, Sinaloa, México, aunque radico en Rosarito. Me apasiona este municipio y disfruto vivir aquí. Soy una persona alegre, amable y servicial, siempre dispuesta a aprender cosas nuevas y ayudar a los demás. Mi color favorito es el azul, y me encanta pasar tiempo en familia, disfrutando del cine y los atardeceres.</p>
+      <button class="read-btn" id="readAboutBtn">Leer</button>
     </div>
     
     <div class="section">
       <h2>Experiencia Profesional</h2>
       <p>Tengo más de 4 años de experiencia en el campo administrativo, donde he colaborado en distintas empresas para mejorar la eficiencia en la recolección de datos, documentación y el trato con proveedores, trabajadores y clientes. Durante mi trayectoria profesional, he acelerado procesos de contratación, ahorrando tiempo y recursos. Como profesional, busco aportar mi experiencia y habilidades organizativas en MetaEnlace, ampliando el espectro de colaboración y comunicación en todos los departamentos de la empresa. Graduada como técnica superior en administración y finanzas, aspiro a implementar mis conocimientos y aptitudes para mejorar los procesos de comunicación, tanto con clientes como con proveedores, y seguir desarrollándome dentro de una de las empresas líderes en sistemas de información y consultoría tecnológica del país.</p>
+      <button class="read-btn" id="readExperienceBtn">Leer</button>
     </div>
     
     <div class="section">
       <h2>Estudios</h2>
       <p>Licenciatura en Administración de Empresas en la Universidad de Mexicali.</p>
+      <button class="read-btn" id="readStudiesBtn">Leer</button>
     </div>
     
     <div class="section">
@@ -132,6 +148,7 @@
         <li>Tomar café</li>
         <li>Ver series</li>
       </ul>
+      <button class="read-btn" id="readHobbiesBtn">Leer</button>
     </div>
     
     <div class="section">
@@ -141,7 +158,52 @@
         <li>Mandarín - Nivel Intermedio</li>
         <li>Francés - Nivel Básico</li>
       </ul>
+      <button class="read-btn" id="readLanguagesBtn">Leer</button>
+    </div>
+    
+    <div class="section">
+      <a class="btn btn-outline-primary" href="empresa.html"> <button class="read-btn" id="readLanguagesBtn"> MAS SOBRE MI </button>
     </div>
   </div>
+
+  <script>
+    const readAboutBtn = document.getElementById('readAboutBtn');
+    const readExperienceBtn = document.getElementById('readExperienceBtn');
+    const readStudiesBtn = document.getElementById('readStudiesBtn');
+    const readHobbiesBtn = document.getElementById('readHobbiesBtn');
+    const readLanguagesBtn = document.getElementById('readLanguagesBtn');
+
+    const aboutText = "Soy de Culiacán, Sinaloa, México, aunque radico en Rosarito. Me apasiona este municipio y disfruto vivir aquí. Soy una persona alegre, amable y servicial, siempre dispuesta a aprender cosas nuevas y ayudar a los demás. Mi color favorito es el azul, y me encanta pasar tiempo en familia, disfrutando del cine y los atardeceres.";
+    const experienceText = "Tengo más de 4 años de experiencia en el campo administrativo, donde he colaborado en distintas empresas para mejorar la eficiencia en la recolección de datos, documentación y el trato con proveedores, trabajadores y clientes. Durante mi trayectoria profesional, he acelerado procesos de contratación, ahorrando tiempo y recursos. Como profesional, busco aportar mi experiencia y habilidades organizativas en MetaEnlace, ampliando el espectro de colaboración y comunicación en todos los departamentos de la empresa. Graduada como técnica superior en administración y finanzas, aspiro a implementar mis conocimientos y aptitudes para mejorar los procesos de comunicación, tanto con clientes como con proveedores, y seguir desarrollándome dentro de una de las empresas líderes en sistemas de información y consultoría tecnológica del país.";
+    const studiesText = "Licenciatura en Administración de Empresas en la Universidad de Mexicali.";
+    const hobbiesText = "Mis hobbies incluyen ir al cine, mirar atardeceres, salir a caminar, tomar café y ver series.";
+    const languagesText = "Idiomas:\n- Inglés: Nivel Avanzado\n- Mandarín: Nivel Intermedio\n- Francés: Nivel Básico";
+
+    function speakText(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Microsoft Sabina Desktop - Spanish (Spain)');
+      speechSynthesis.speak(utterance);
+    }
+
+    readAboutBtn.addEventListener('click', () => {
+      speakText(aboutText);
+    });
+
+    readExperienceBtn.addEventListener('click', () => {
+      speakText(experienceText);
+    });
+
+    readStudiesBtn.addEventListener('click', () => {
+      speakText(studiesText);
+    });
+
+    readHobbiesBtn.addEventListener('click', () => {
+      speakText(hobbiesText);
+    });
+
+    readLanguagesBtn.addEventListener('click', () => {
+      speakText(languagesText);
+    });
+  </script>
 </body>
 </html>
