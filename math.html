@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matemáticas Divertidas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #FEEAFA;
+            text-align: center;
+        }
+        h1 {
+            color: #FF0080;
+        }
+        .calculator {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Matemáticas Divertidas</h1>
+        <div class="calculator">
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary operator" onclick="handleOperator('+')">+</button>
+                    <button class="btn btn-primary operator" onclick="handleOperator('-')">-</button>
+                    <button class="btn btn-primary operator" onclick="handleOperator('*')">*</button>
+                </div>
+                <div class="col-md-4">
+                    <input type="number" id="num1" class="form-control" placeholder="Número 1">
+                    <input type="number" id="num2" class="form-control" placeholder="Número 2">
+                    <button class="btn btn-success mt-2" onclick="calculate()">Calcular</button>
+                </div>
+                <div class="col-md-4">
+                    <p class="result" id="result">Resultado: </p>
+                    <button class="btn btn-secondary mt-2" onclick="speakResult('result')">Decir Resultado</button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button class="btn btn-info" onclick="openYouTube()">Ver Video de Apoyo</button>
+        </div>
+        <div class="mt-5">
+            <h3>¡Juego de Sumas y Restas!</h3>
+            <p>Resuelve las siguientes operaciones:</p>
+            <button class="btn btn-primary" onclick="generateEquation()">Nueva Operación</button>
+            <div class="equation mt-3">
+                <p id="equation"></p>
+                <input type="number" id="userAnswer" class="form-control mt-2" placeholder="Tu respuesta">
+                <button class="btn btn-success mt-2" onclick="checkAnswer()">Comprobar</button>
+                <p id="feedback" class="mt-2"></p>
+                <button class="btn btn-secondary mt-2" onclick="speakResult('feedback')">Decir Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const operators = ['+', '-', '*'];
+
+        function handleOperator(operator) {
+            document.getElementById('num1').value = '';
+            document.getElementById('num2').value = '';
+            document.getElementById('result').textContent = 'Resultado: ';
+            const operatorButtons = document.querySelectorAll('.operator');
+            operatorButtons.forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+                if (btn.textContent === operator) {
+                    btn.classList.remove('btn-secondary');
+                    btn.classList.add('btn-primary');
+                }
+            });
+        }
+
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const selectedOperator = document.querySelector('.btn-primary.operator').textContent;
+            let result;
+
+            switch (selectedOperator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+            }
+
+            document.getElementById('result').textContent = `Resultado: ${result}`;
+        }
+
+        function openYouTube() {
+            window.open('<iframe width="560" height="315" src="https://www.youtube.com/embed/Lqf5WmulMYI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>', '_blank');
+        }
+
+        function generateEquation() {
+            const num1 = Math.floor(Math.random() * 10) + 1; // Números del 1 al 10
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            document.getElementById('equation').textContent = `${num1} ${operator} ${num2}`;
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function checkAnswer() {
+            const equation = document.getElementById('equation').textContent;
+            const userAnswer = parseFloat(document.getElementById('userAnswer').value);
+            const operator = equation.split(' ')[1];
+            const num1 = parseInt(equation.split(' ')[0]);
+            const num2 = parseInt(equation.split(' ')[2]);
+            let correctAnswer;
+
+            switch (operator) {
+                case '+':
+                    correctAnswer = num1 + num2;
+                    break;
+                case '-':
+                    correctAnswer = num1 - num2;
+                    break;
+            }
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('feedback').textContent = '¡Bien hecho!';
+            } else {
+                document.getElementById('feedback').textContent = 'Sigue intentando.';
+            }
+        }
+
+        function speakResult(elementId) {
+            const resultText = document.getElementById(elementId).textContent;
+            const speech = new SpeechSynthesisUtterance(resultText);
+            speech.rate = 0.8;
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
