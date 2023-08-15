@@ -3,95 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexa's Repostería</title>
-    <!-- Agregar enlace a Bootstrap CSS -->
+    <title>Alexa's Cake - Repostería</title>
+    <!-- Enlaces a Bootstrap CSS y JavaScript -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
     <style>
-        /* Estilos actualizados con colores nude y café */
+        /* Estilos mejorados */
         body {
-            background-color: #f2e3d5;
+            background-color: #fce8d5;
+            font-family: 'Helvetica Neue', sans-serif;
         }
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        .header {
+            background-color: #7d5a4f;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
         }
         .company-logo {
-            max-width: 150px;
-            margin-bottom: 20px;
+            max-width: 200px;
+            display: block;
+            margin: 0 auto;
         }
-        h1 {
+        .carousel-inner img {
+            max-height: 400px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
             color: #7d5a4f;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #7d5a4f;
-            margin-bottom: 15px;
-        }
-        .flavor-item h3 {
-            color: #7d5a4f;
-        }
-        .flavor-item p {
-            color: #7d5a4f;
-            margin-top: 5px;
-        }
-        .show-ingredients-btn {
-            background-color: #a37f6f;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
-        }
-        .show-ingredients-btn:hover {
-            background-color: #7d5a4f;
-        }
-        .social-links {
+            text-align: center;
             margin-top: 20px;
         }
-        .mission-vision {
-            margin-top: 50px;
+        .flavor-list {
+            margin-top: 30px;
         }
-        .read-aloud-btn {
+        .flavor-item {
+            border: 1px solid #f5e3d2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+        .flavor-item:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        }
+        .social-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .mission-vision {
+            text-align: center;
+            margin-top: 50px;
+            color: #7d5a4f;
+        }
+        .btn-custom {
             background-color: #7d5a4f;
             color: #fff;
             border: none;
-            padding: 5px 10px;
             border-radius: 5px;
-            cursor: pointer;
+            padding: 8px 20px;
+            font-size: 16px;
             transition: background-color 0.3s;
-            font-size: 14px;
+        }
+        .btn-custom:hover {
+            background-color: #a37f6f;
+        }
+        .read-aloud-btn {
+            background-color: #a37f6f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
         .read-aloud-btn:hover {
-            background-color: #a37f6f;
+            background-color: #7d5a4f;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="text-center">
-            <img class="company-logo img-fluid" src="./assets/lic3.jpg" alt="Logo de Alexa's Repostería">
-        </div>
+    <div class="header">
+        <img class="company-logo img-fluid" src="./assets/lic3.jpg" alt="Logo de Alexa's Cake">
+        <h1>Alexa's Cake - Repostería</h1>
         
-        <h1>Alexa's Repostería</h1>
-
         <div class="social-links">
             <a href="https://www.facebook.com/alexaamador1814?mibextid=9R9pXO" target="_blank" class="btn btn-primary">Visítanos en Facebook</a>
             <a href="https://api.whatsapp.com/send?phone=1234567890" class="btn btn-success ml-3">Contáctanos en WhatsApp</a>
         </div>
+    </div>
+
+    <div class="container mt-4">
+        <div id="cakeCarousel" class="carousel slide" data-ride="carousel">
+           <img src="pastel carre.jpeg" alt=""><!-- Carrusel de imágenes aquí --> 
+        </div>
 
         <div class="flavor-list">
-            <h2>Sabores de Pasteles</h2>
-            <div class="flavor-item">
-                <h3>Pastel de Chocolate</h3>
-                <p>Relleno de ganache de chocolate negro.</p>
-            </div>
-            <div class="flavor-item">
-                <h3>Pastel de Vainilla</h3>
-                <p>Relleno de crema de vainilla y fresas frescas.</p>
+            <h2>Descubre Nuestros Deliciosos Sabores</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="flavor-item">
+                        <h3>Pastel de Chocolate</h3>
+                        <p>Relleno de ganache de chocolate negro.</p>
+                        <button class="btn btn-custom show-ingredients-btn" data-toggle="modal" data-target="#ingredientsModal">Ver Ingredientes</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="flavor-item">
+                        <h3>Pastel de Vainilla</h3>
+                        <p>Relleno de crema de vainilla y fresas frescas.</p>
+                        <button class="btn btn-custom show-ingredients-btn" data-toggle="modal" data-target="Delicioso pan de vaiilla, con relleno de crema y fresas frescas">Ver Ingredientes</button>
+                    </div>
+                </div>
             </div>
             <!-- Agregar más sabores... -->
         </div>
@@ -99,36 +126,37 @@
         <!-- Modal para mostrar ingredientes y rellenos -->
         <div class="modal fade" id="ingredientsModal" tabindex="-1" role="dialog" aria-labelledby="ingredientsModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ingredientsModalLabel">Ingredientes y Relleno</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Contenido del modal se agregará dinámicamente aquí -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+                <!-- Contenido del modal aquí -->
             </div>
         </div>
 
         <!-- Misión y Visión -->
         <div class="mission-vision mt-5">
-            <h2>Misión</h2>
+            <h2>Nuestra Misión</h2>
             <p>Satisfacer los paladares más exigentes a través de creaciones reposteras únicas y deliciosas que deleiten y sorprendan en cada bocado.</p>
+            <button class="btn read-aloud-btn" id="readMissionBtn">Leer Misión</button>
         </div>
         <div class="mission-vision mt-5">
-            <h2>Visión</h2>
+            <h2>Nuestra Visión</h2>
             <p>Convertirnos en la referencia de excelencia en el mundo de la repostería, innovando constantemente y expandiendo nuestra pasión por el sabor y la calidad.</p>
+            <button class="btn read-aloud-btn" id="readVisionBtn">Leer Visión</button>
         </div>
     </div>
-    <a class="btn btn-outline-primary" href="index.html"> <button class="read-btn" id="readLanguagesBtn"> Alexa´s  </button>
-        <a class="btn btn-outline-primary" href="math.html"> <button class="read-btn" id="readLanguagesBtn"> Matematicas divertidas </button>
 
     <!-- Scripts y JavaScript... -->
+    <script>
+        const readMissionBtn = document.getElementById('readMissionBtn');
+        const readVisionBtn = document.getElementById('readVisionBtn');
+        const missionText = "Satisfacer los paladares más exigentes a través de creaciones reposteras únicas y deliciosas que deleiten y sorprendan en cada bocado.";
+        const visionText = "Convertirnos en la referencia de excelencia en el mundo de la repostería, innovando constantemente y expandiendo nuestra pasión por el sabor y la calidad.";
+
+        readMissionBtn.addEventListener('click', () => {
+            responsiveVoice.speak(missionText, 'Spanish Female', { rate: 0.9 });
+        });
+
+        readVisionBtn.addEventListener('click', () => {
+            responsiveVoice.speak(visionText, 'Spanish Female', { rate: 0.9 });
+        });
+    </script>
 </body>
 </html>
